@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+  api:
+    ports:
+      - 4223:4223
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+      args:
+        STATIC_URL: '/static'
+    restart: unless-stopped
+    depends_on:
+      - db
+    networks:
+      - backend-tier
+    volumes:
+      - ./mbi/:/app
+      - media-local:/app/media
+    command: npm start
+
+  # api-media:
+  #   ports:
+  #     - 4225:4225
+  #   build:
+  #     context: ./backend-upload-image
+  #     dockerfile: ./Dockerfile
+  #   restart: unless-stopped
+  #   depends_on: 
+  #     - db
+  #   networks: 
+  #     - backend-tier
+  #   volumes:
+  #     - ./backend-upload-image/:/app
+  #     - /app/node_modules
+  #   command: npm start
+
+  db:
+    image: mongo
+    ports: 
+      - 27017:27017
+    networks:
+      - backend-tier
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+      - db-local:/data/db
+    command:
+      - mongod
+
+volumes:
+  db-local:
+    driver: local
+  media-local:
+
+networks:
+  default:
+  backend-tier:
+    driver: bridge
