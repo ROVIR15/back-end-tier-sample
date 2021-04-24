@@ -15,7 +15,7 @@ services:
     networks:
       - backend-tier
     volumes:
-      - ./mbi/:/app
+      - ./api/:/app
       - media-local:/app/media
     command: npm start
 

@@ -17,7 +17,7 @@ ENV HEALTH_ENDPOINT=4224
 EXPOSE 4223
 CMD npm run build
 
-FROM nginx:stable
-WORKDIR /app
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/dist/ /app/
+# FROM nginx:stable
+# WORKDIR /app
+# COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+# COPY --from=builder /app/dist/ /app/
