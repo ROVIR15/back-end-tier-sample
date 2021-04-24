@@ -19,21 +19,21 @@ services:
       - media-local:/app/media
     command: npm start
 
-  # api-media:
-  #   ports:
-  #     - 4225:4225
-  #   build:
-  #     context: ./backend-upload-image
-  #     dockerfile: ./Dockerfile
-  #   restart: unless-stopped
-  #   depends_on: 
-  #     - db
-  #   networks: 
-  #     - backend-tier
-  #   volumes:
-  #     - ./backend-upload-image/:/app
-  #     - /app/node_modules
-  #   command: npm start
+  api-media:
+    ports:
+      - 4225:4225
+    build:
+      context: ./api-media
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    depends_on: 
+      - db
+    networks: 
+      - backend-tier
+    volumes:
+      - ./api-media/:/app
+      - /app/node_modules
+    command: node index.js
 
   db:
     image: mongo

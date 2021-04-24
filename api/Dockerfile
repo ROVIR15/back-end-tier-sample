@@ -10,9 +10,6 @@ RUN apt-get -q update && apt-get -qy install netcat
 
 WORKDIR /app
 COPY package*.json ./
-ENV NODE_ENV=development
-ENV PORT=4223
-ENV HEALTH_ENDPOINT=4224
 
 EXPOSE 4223
 CMD npm run build
